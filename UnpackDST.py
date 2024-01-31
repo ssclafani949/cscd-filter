@@ -57,36 +57,39 @@ tray.Add(online_basic_recos, 'polereco_dst')
 
 # lvl2 cascade hit cleaning #
 tray.AddSegment(CascadeHitCleaning,'CascadeHitCleaning', 
-    If=which_split(split_name='InIceSplit') & (lambda f: cascade_wg(f)),
+    If=which_split(split_name='InIceSplit'), #& (lambda f: cascade_wg(f)),
 )
+
 #cascade lvl1 filter
 tray.AddSegment(CascadeFilter, "CascadeFilter",
                 pulses='CleanedInIcePulses')
 
 # cascade lvl2 reco #
 tray.AddSegment(OfflineCascadeReco,'CascadeL2Reco',
-    SRTPulses='',
+    SRTPulses='SplitRTCleanedInIcePulses',
     Pulses='SplitInIcePulses',
-    TopoPulses = '',
-    If=which_split(split_name='InIceSplit') & (lambda f: cascade_wg(f)),
+    TopoPulses = 'OfflinePulsesHLC',
+    If=which_split(split_name='InIceSplit'),#& (lambda f: cascade_wg(f)),
     suffix='_L2'
 )
 
-#tray.AddModule(label,'label_CascadeL2Stream',year=2014)
+#tray.AddModule(label,'label_CascadeL2Stream',year=2024)
+
+
 #selects cascade L2 stream w/o removing IceTop p-frames.
 #tray.AddModule(lambda frame: frame['CscdL2'].value and which_split(frame, split_name='InIceSplit'),'SelectCscdL2')
                     
 #cascade lvl3 
 
-#tray.AddSegment(CascadeL3,
-#                    gcdfile=None,
-#                    infiles=None,
-#                    output_i3=None,
-#                    AmplitudeTable="/cvmfs/icecube.opensciencegrid.org/data/photon-tables/splines/ems_mie_z20_a10.abs.fits",
-#                    TimingTable="/cvmfs/icecube.opensciencegrid.org/data/photon-tables/splines/ems_mie_z20_a10.prob.fits",
-#                    MCbool=False,
-#                    MCtype=None,
-#		    Year=2024)
+tray.AddSegment(CascadeL3,
+                    gcdfile=None,
+                    infiles=None,
+                    output_i3=None,
+                    AmplitudeTable="/cvmfs/icecube.opensciencegrid.org/data/photon-tables/splines/ems_mie_z20_a10.abs.fits",
+                    TimingTable="/cvmfs/icecube.opensciencegrid.org/data/photon-tables/splines/ems_mie_z20_a10.prob.fits",
+                    MCbool=False,
+                    MCtype=None,
+		    Year=2024)
 
 # WG classifiers and filters go here.  All in a single
 #  segment with reco and selection
@@ -106,8 +109,8 @@ if args.PRETTY:
     print(tray)
     exit(0)
 
-tray.Execute(100)
-#tray.Execute()
+#tray.Execute(1000)
+tray.Execute()
 
 tray.PrintUsage(fraction=1.0)
 for entry in tray.Usage():
