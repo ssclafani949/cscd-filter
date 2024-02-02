@@ -73,12 +73,6 @@ tray.AddSegment(OfflineCascadeReco,'CascadeL2Reco',
     suffix='_L2'
 )
 
-#tray.AddModule(label,'label_CascadeL2Stream',year=2024)
-
-
-#selects cascade L2 stream w/o removing IceTop p-frames.
-#tray.AddModule(lambda frame: frame['CscdL2'].value and which_split(frame, split_name='InIceSplit'),'SelectCscdL2')
-                    
 #cascade lvl3 
 
 tray.AddSegment(CascadeL3,
