@@ -25,7 +25,7 @@ for i in sorted(inputs)[:nfiles]:
         gcd = gcds[2]
 
     outdir = '/data/user/ssclafani/cscd-filter/data'
-    outfile = 'lvl2_Run{}_SubRun{}'.format(run, subrun)
+    outfile = 'new_lvl2_Run{}_SubRun{}'.format(run, subrun)
     o = os.path.join(outdir, outfile)
     
     if gcd:
