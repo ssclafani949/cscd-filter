@@ -1,0 +1,11 @@
+eval `/cvmfs/icecube.opensciencegrid.org/py3-v4.2.1/setup.sh`
+
+export PYTHONUSERBASE='/data/user/ssclafani/software/venvs/py3_10/'
+echo 'Using PYTHONUSERBASE: '${PYTHONUSERBASE}
+
+export PATH=$PYTHONUSERBASE/bin:$PATH
+export PYTHONPATH=$PYTHONUSERBASE/lib/python3.7/site-packages:$PYTHONPATH
+#.  '/data/user/ssclafani/software/meta-projects/icetray/build/env-shell.sh'
+#. /data/i3home/ssclafani/venvs/venv-3/bin/activate
+#source /home/ssclafani/.vens/py3_venv/bin/activate
+

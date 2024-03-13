@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import time
 from argparse import ArgumentParser
 
@@ -9,7 +10,7 @@ from icecube.offline_filterscripts.filter_segments.example_filter \
 from icecube.online_filterscripts.base_segments.pole_base_reco_dst import online_basic_recos
 from icecube.filterscripts.cascadefilter import CascadeFilter
 from icecube.phys_services.which_split import which_split
-
+from icecube.offline_filterscripts.cascade_filter.CascadeL3TraySegment import CascadeL3
 
 start_time = time.asctime()
 print('Started:', start_time)
@@ -43,8 +44,8 @@ tray.Add(read_superdst_files, 'read_dst',
          input_files=[args.INPUT],
          input_gcd=args.GCD,
          qify_input=args.QIFY)
-# As a stand in for other processing, rerun the basic reconstructions from pole.
 
+# As a stand in for other processing, rerun the basic reconstructions from pole.
 tray.Add(online_basic_recos, 'polereco_dst')
 # And apply a simple example filter using these simple recos
 
@@ -52,7 +53,14 @@ tray.Add(online_basic_recos, 'polereco_dst')
 tray.AddSegment(CascadeFilter, "CascadeFilter",
                 pulses='CleanedInIcePulses',
                 If=which_split('InIceSplit'))
-# Write the physics and DAQ frames
+
+#Write the physics and DAQ frames
+tray.AddSegment(CascadeL3,
+                infiles=None,    
+                gcdfile=None,
+                output_i3=None)
+
+
 tray.AddModule("I3Writer", "EventWriter", filename=args.OUTPUT,
                Streams=[icetray.I3Frame.Physics, icetray.I3Frame.DAQ],
                DropOrphanStreams=[icetray.I3Frame.DAQ,

@@ -55,7 +55,7 @@ tray.Add(online_basic_recos, 'polereco_dst')
 # And apply a simple example filter using these simple recos
 
 
-# lvl2 cascade hit cleaning #
+# lvl1?? cascade hit cleaning #
 tray.AddSegment(CascadeHitCleaning,'CascadeHitCleaning', 
     If=which_split(split_name='InIceSplit'), #& (lambda f: cascade_wg(f)),
 )
@@ -103,7 +103,7 @@ if args.PRETTY:
     print(tray)
     exit(0)
 
-#tray.Execute(1000)
+#tray.Execute(100)
 tray.Execute()
 
 tray.PrintUsage(fraction=1.0)
